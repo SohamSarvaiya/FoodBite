@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FoodBite</string>
+    <string name="str1">Explore exciting new \nfood eateries near you </string>
+    <string name="str2">Food Bite is a food eatery app \npowered by XYZ</string>
+    <string name="str3">Already have an account? </string>
+    <string name="welcome">Welcome</string>
+    <string name="register_to_food_bite">Register to Food Bite</string>
+    <string name="login_to_food_bite">Login to Food Bite</string>
+    <string name="forgot_">Forgot Password?</string>
+    <string name="forgot_text">Enter your email, and we\'ll send a link to reset your password. Please check your inbox for the instructions</string>
+
+    <string name="login">LOGIN</string>
+    <string name="login_"> Login</string>
+    <string name="register_"> Register</string>
+
+</resources>
