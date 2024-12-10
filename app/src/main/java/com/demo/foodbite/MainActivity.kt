@@ -25,7 +25,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun App() {
-    //for navigation Controller. One screen to another screen
     NavControllerClass()
 
 }
