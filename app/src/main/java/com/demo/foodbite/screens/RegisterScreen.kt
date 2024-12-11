@@ -62,22 +62,26 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.demo.foodbite.R
+import com.demo.foodbite.viewmodels.UserViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 @Composable
-fun RegisterScreen(navController: NavHostController) {
+fun RegisterScreen(navController: NavHostController, viewModel: UserViewModel) {
     Scaffold(
         content = { paddingValues ->
-            RegisterScreenContent(paddingValues = paddingValues, navController = navController)
+            RegisterScreenContent(paddingValues = paddingValues, navController = navController,viewModel)
         }
     )
 }
+
+
 @Composable
 fun RegisterScreenContent(
     paddingValues: PaddingValues,
-    navController: NavController
+    navController: NavController,
+    viewModel: UserViewModel
 ) {
     Column(
         modifier = Modifier
@@ -88,7 +92,7 @@ fun RegisterScreenContent(
     ) {
         HeaderRegister(navController)
         Spacer(modifier = Modifier.padding(top = 50.dp))
-        RegisterForm(navController)
+        RegisterForm(navController,viewModel)
     }
 }
 
@@ -149,139 +153,186 @@ fun WelcomeRegisterText() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterForm(navController: NavController) {
+fun RegisterForm(navController: NavController, viewModel: UserViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 20.dp, end = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        RegisterUserNameTextField()
-        RegisterEmailTextField()
-        RegisterDOBTextField()
-        RegisterPasswordTextField()
-        RegisterConfirmPasswordTextField()
-        SignUpButton(onClick = { navController.navigate("main_screen") })
-        LoginTextClick(navController)
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun RegisterUserNameTextField() {
-    var email by remember { mutableStateOf("") }
-    TextField(
-        value = email,
-        onValueChange = { email = it },
-        label = { Text("Enter Username") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.White,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = colorResource(id = R.color.purple_700),
-            unfocusedIndicatorColor = Color.Gray,
-            cursorColor = Color.Black,
-            focusedLabelColor = Color.Gray
-        ),
-        trailingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_user),
-                contentDescription = "user Icon",
-                tint = colorResource(id = R.color.black)
-            )
-        },
-        modifier = Modifier.fillMaxWidth()
-    )
-}
 
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun RegisterEmailTextField() {
-    var email by remember { mutableStateOf("") }
-    TextField(
-        value = email,
-        onValueChange = { email = it },
-        label = { Text("Enter Email") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.White,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = colorResource(id = R.color.purple_700),
-            unfocusedIndicatorColor = Color.Gray,
-            cursorColor = Color.Black,
-            focusedLabelColor = Color.Gray
-        ),
-        trailingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_email),
-                contentDescription = "Email Icon",
-                tint = colorResource(id = R.color.black)
-            )
-        },
-        modifier = Modifier.fillMaxWidth().padding(top = 30.dp)
-    )
-}
+        //username TextField
+        TextField(
+            value = viewModel.username,
+            onValueChange = { viewModel.username = it },
+            label = { Text("Enter Username") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                focusedIndicatorColor = colorResource(id = R.color.purple_700),
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedLabelColor = Color.Gray
+            ),
+            trailingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_user),
+                    contentDescription = "user Icon",
+                    tint = colorResource(id = R.color.black)
+                )
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
 
 
+        //email Text Field
+        TextField(
+            value = viewModel.email,
+            onValueChange = { viewModel.email = it },
+            label = { Text("Enter Email") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                focusedIndicatorColor = colorResource(id = R.color.purple_700),
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedLabelColor = Color.Gray
+            ),
+            trailingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_email),
+                    contentDescription = "Email Icon",
+                    tint = colorResource(id = R.color.black)
+                )
+            },
+            modifier = Modifier.fillMaxWidth().padding(top = 30.dp)
+        )
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun RegisterDOBTextField() {
-    var selectedDate by remember { mutableStateOf<Long?>(null) }
-    var showModal by remember { mutableStateOf(false) }
-    TextField(
-        value = selectedDate?.let { convertMillisToDate(it) } ?: "",
-        onValueChange = { },
-        label = { Text("DOB") },
-        placeholder = { Text("MM/DD/YYYY") },
-        visualTransformation = VisualTransformation.None,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.White,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = colorResource(id = R.color.purple_700),
-            unfocusedIndicatorColor = Color.Gray,
-            cursorColor = Color.Black,
-            focusedLabelColor = Color.Gray
-        ),
-        trailingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_calender),
-                contentDescription = "calender Icon",
-                tint = colorResource(id = R.color.black)
-            )
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 30.dp)
-            .pointerInput(selectedDate) {
-                awaitEachGesture {
-                    // Modifier.clickable doesn't work for text fields, so we use Modifier.pointerInput
-                    // in the Initial pass to observe events before the text field consumes them
-                    // in the Main pass.
-                    awaitFirstDown(pass = PointerEventPass.Initial)
-                    val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
-                    if (upEvent != null) {
-                        showModal = true
+        //select DOB Field
+
+        var selectedDate by remember { mutableStateOf<Long?>(null) }
+        var showModal by remember { mutableStateOf(false) }
+        TextField(
+            value = selectedDate?.let { convertMillisToDate(it) } ?: viewModel.dob,
+            onValueChange = { },
+            label = { Text("DOB") },
+            placeholder = { Text("DD/MM/YYYY") },
+            visualTransformation = VisualTransformation.None,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                focusedIndicatorColor = colorResource(id = R.color.purple_700),
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedLabelColor = Color.Gray
+            ),
+            trailingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_calender),
+                    contentDescription = "calender Icon",
+                    tint = colorResource(id = R.color.black)
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 30.dp)
+                .pointerInput(selectedDate) {
+                    awaitEachGesture {
+                        // Modifier.clickable doesn't work for text fields, so we use Modifier.pointerInput
+                        // in the Initial pass to observe events before the text field consumes them
+                        // in the Main pass.
+                        awaitFirstDown(pass = PointerEventPass.Initial)
+                        val upEvent = waitForUpOrCancellation(pass = PointerEventPass.Initial)
+                        if (upEvent != null) {
+                            showModal = true
+                        }
                     }
                 }
-            }
-    )
-    if (showModal) {
-        DatePickerModal(
-            onDateSelected = { selectedDate = it },
-            onDismiss = { showModal = false }
         )
+        if (showModal) {
+            DatePickerModal(
+                onDateSelected = {
+                    selectedDate = it
+                    viewModel.dob = convertMillisToDate(it!!) // Update the ViewModel
+                },
+                onDismiss = { showModal = false }
+            )
+        }
+
+
+        //password TextField
+
+        TextField(
+            value = viewModel.password,
+            onValueChange = { viewModel.password = it },
+            label = { Text("Enter Password") },
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Next),
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                focusedIndicatorColor = colorResource(id = R.color.purple_700),
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedLabelColor = Color.Gray
+            ),
+            trailingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_password),
+                    contentDescription = "Password Icon",
+                    tint = colorResource(id = R.color.black)
+                )
+            },
+            modifier = Modifier.fillMaxWidth().padding(top = 30.dp)
+        )
+
+
+        //Confirm Password
+
+        TextField(
+            value = viewModel.confirmPassword,
+            onValueChange = { viewModel.confirmPassword = it },
+            label = { Text("Enter Confirm Password") },
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                focusedIndicatorColor = colorResource(id = R.color.purple_700),
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedLabelColor = Color.Gray
+            ),
+            trailingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_password),
+                    contentDescription = "Password Icon",
+                    tint = colorResource(id = R.color.black)
+                )
+            },
+            modifier = Modifier.fillMaxWidth().padding(top = 30.dp)
+        )
+
+        SignUpButton(onClick = { navController.navigate("main_screen")})
+
+        LoginTextClick(navController)
     }
 }
 
@@ -314,72 +365,12 @@ fun DatePickerModal(
 }
 
 fun convertMillisToDate(millis: Long): String {
-    val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     return formatter.format(Date(millis))
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun RegisterPasswordTextField() {
-    var password by remember { mutableStateOf("") }
-    TextField(
-        value = password,
-        onValueChange = { password = it },
-        label = { Text("Enter Password") },
-        visualTransformation = PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Next),
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.White,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = colorResource(id = R.color.purple_700),
-            unfocusedIndicatorColor = Color.Gray,
-            cursorColor = Color.Black,
-            focusedLabelColor = Color.Gray
-        ),
-        trailingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_password),
-                contentDescription = "Password Icon",
-                tint = colorResource(id = R.color.black)
-            )
-        },
-        modifier = Modifier.fillMaxWidth().padding(top = 30.dp)
-    )
-}
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun RegisterConfirmPasswordTextField() {
-    var password by remember { mutableStateOf("") }
-    TextField(
-        value = password,
-        onValueChange = { password = it },
-        label = { Text("Enter Confirm Password") },
-        visualTransformation = PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.White,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = colorResource(id = R.color.purple_700),
-            unfocusedIndicatorColor = Color.Gray,
-            cursorColor = Color.Black,
-            focusedLabelColor = Color.Gray
-        ),
-        trailingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_password),
-                contentDescription = "Password Icon",
-                tint = colorResource(id = R.color.black)
-            )
-        },
-        modifier = Modifier.fillMaxWidth().padding(top = 30.dp)
-    )
-}
 @Composable
 fun SignUpButton(onClick: () -> Unit) {
     Button(

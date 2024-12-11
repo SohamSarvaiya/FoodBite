@@ -1,6 +1,7 @@
 package com.demo.foodbite.app
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -10,10 +11,14 @@ import com.demo.foodbite.screens.MainScreen
 import com.demo.foodbite.screens.RegisterScreen
 import com.demo.foodbite.screens.SelectionScreen
 import com.demo.foodbite.screens.SplashScreen
+import com.demo.foodbite.viewmodels.UserViewModel
 
 @Composable
 fun NavControllerClass(){
     val navController = rememberNavController() // Create NavController
+
+    val userViewModel: UserViewModel = viewModel()
+
     // Set up navigation using NavHost
     NavHost(
         navController = navController,
@@ -30,12 +35,12 @@ fun NavControllerClass(){
 
         //Login Screen
         composable("login_screen"){
-            LoginScreen(navController)
+            LoginScreen(navController, userViewModel)
         }
 
         //Register Screen
         composable("register_screen"){
-            RegisterScreen(navController)
+            RegisterScreen(navController,userViewModel)
         }
 
         //Register Screen
@@ -44,8 +49,9 @@ fun NavControllerClass(){
         }
 
         //Main Screen
-        composable("main_screen"){
-            MainScreen(navController)
+        composable(route = "main_screen"){
+            MainScreen(navController, userViewModel)
+
         }
 
 

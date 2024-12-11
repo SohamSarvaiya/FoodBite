@@ -51,12 +51,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.demo.foodbite.R
+import com.demo.foodbite.viewmodels.UserViewModel
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, viewModel: UserViewModel) {
     Scaffold(
         content = { paddingValues ->
-            LoginScreenContent(paddingValues = paddingValues, navController = navController)
+            LoginScreenContent(paddingValues = paddingValues, navController = navController,viewModel)
         }
     )
 }
@@ -64,7 +65,8 @@ fun LoginScreen(navController: NavController) {
 @Composable
 fun LoginScreenContent(
     paddingValues: PaddingValues,
-    navController: NavController
+    navController: NavController,
+    viewModel: UserViewModel
 ) {
     Column(
         modifier = Modifier
@@ -75,7 +77,7 @@ fun LoginScreenContent(
     ) {
         Header(navController)
         Spacer(modifier = Modifier.padding(top = 100.dp))
-        LoginForm(navController)
+        LoginForm(navController,viewModel)
     }
 }
 
@@ -135,82 +137,79 @@ fun WelcomeText() {
         )
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginForm(navController: NavController) {
+fun LoginForm(navController: NavController, viewModel: UserViewModel) {
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 20.dp, end = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        EmailTextField()
-        PasswordTextField()
+
+        TextField(
+            value = viewModel.email,
+            onValueChange = { viewModel.email = it },
+            label = { Text("Enter Email") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                focusedIndicatorColor = colorResource(id = R.color.purple_700),
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedLabelColor = Color.Gray
+            ),
+            trailingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_email),
+                    contentDescription = "Email Icon",
+                    tint = colorResource(id = R.color.black)
+                )
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        TextField(
+            value = viewModel.password,
+            onValueChange = { viewModel.password = it },
+            label = { Text("Enter Password") },
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
+            singleLine = true,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = Color.White,
+                focusedTextColor = Color.Black,
+                unfocusedTextColor = Color.Black,
+                focusedIndicatorColor = colorResource(id = R.color.purple_700),
+                unfocusedIndicatorColor = Color.Gray,
+                cursorColor = Color.Black,
+                focusedLabelColor = Color.Gray
+            ),
+            trailingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_password),
+                    contentDescription = "Password Icon",
+                    tint = colorResource(id = R.color.black)
+                )
+            },
+            modifier = Modifier.fillMaxWidth().padding(top = 60.dp)
+        )
+
+        //pass data to main screen
         LoginButton(onClick = { navController.navigate("main_screen") })
         ForgotPwdT(navController)
         RegisterTextClick(navController)
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun EmailTextField() {
-    var email by remember { mutableStateOf("") }
-    TextField(
-        value = email,
-        onValueChange = { email = it },
-        label = { Text("Enter Email") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.White,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = colorResource(id = R.color.purple_700),
-            unfocusedIndicatorColor = Color.Gray,
-            cursorColor = Color.Black,
-            focusedLabelColor = Color.Gray
-        ),
-        trailingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_email),
-                contentDescription = "Email Icon",
-                tint = colorResource(id = R.color.black)
-            )
-        },
-        modifier = Modifier.fillMaxWidth()
-    )
-}
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun PasswordTextField() {
-    var password by remember { mutableStateOf("") }
-    TextField(
-        value = password,
-        onValueChange = { password = it },
-        label = { Text("Enter Password") },
-        visualTransformation = PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
-        singleLine = true,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.White,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
-            focusedIndicatorColor = colorResource(id = R.color.purple_700),
-            unfocusedIndicatorColor = Color.Gray,
-            cursorColor = Color.Black,
-            focusedLabelColor = Color.Gray
-        ),
-        trailingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_password),
-                contentDescription = "Password Icon",
-                tint = colorResource(id = R.color.black)
-            )
-        },
-        modifier = Modifier.fillMaxWidth().padding(top = 60.dp)
-    )
-}
+
+
 
 @Composable
 fun LoginButton(onClick: () -> Unit) {

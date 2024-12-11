@@ -6,6 +6,8 @@ Splash Screen: A visually appealing introduction screen.
 Login Screen: For user authentication with a simple and clean interface.
 Register Screen: Allows new users to create an account.
 Forgot Password Screen: Helps users recover their account details.
+Integrate Pass UserData to Another Screen Functionality,using viewModel class
+
 🛠️ Technology Stack
 Language: Kotlin
 UI Toolkit: Jetpack Compose

@@ -17,6 +17,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FoodBiteTheme {
+
+
                 App()
             }
         }
