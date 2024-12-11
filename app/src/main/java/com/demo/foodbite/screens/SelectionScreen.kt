@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
@@ -77,12 +78,14 @@ fun HeaderSection() {
             contentScale = ContentScale.FillBounds
         )
 
-        Text(
-            text = "FoodBite",
-            color = Color.White,
-            fontSize = 30.sp,
-            textAlign = TextAlign.Center,
-            fontFamily = FontFamily(Font(R.font.nunito_bold))
+        Image(
+            painter = painterResource(id = R.drawable.food_logo),
+            contentDescription = "logo Image",
+            modifier = Modifier
+                .height(180.dp)
+                .width(180.dp)
+                .align(Alignment.Center),
+            contentScale = ContentScale.FillBounds
         )
     }
 }
