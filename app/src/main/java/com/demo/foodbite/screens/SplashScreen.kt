@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -55,6 +56,7 @@ fun SplashScreen(navController: NavController){
                 LaunchedEffect(Unit) {
                     delay(3000)
                     navController.navigate("selection_screen")
+
                 }
             }
 
