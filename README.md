@@ -1,5 +1,10 @@
+
 🍔 Food App UI Design with Jetpack Compose
 This repository contains the initial screens of a Food App UI, built using the latest Jetpack Compose. The app focuses on creating a seamless user experience with modern design principles.
+
+![Photo1](https://github.com/user-attachments/assets/527d70a8-6078-4d89-a2fb-c0d74bcff589)
+![Photo2](https://github.com/user-attachments/assets/27c19ebc-0bee-4343-b884-713b46e4f6c1)
+
 
 🚀 Features Implemented So Far
 Splash Screen: A visually appealing introduction screen.
