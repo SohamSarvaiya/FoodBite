@@ -25,7 +25,7 @@ fun NavControllerClass(){
         startDestination = "splash_screen"
     ){
         composable("splash_screen") {
-            SplashScreen(navController = navController) // Correctly pass navController
+            SplashScreen(navController = navController)
         }
 
         //selection Screen
@@ -53,9 +53,6 @@ fun NavControllerClass(){
             MainScreen(navController, userViewModel)
 
         }
-
-
     }
-
 }
 

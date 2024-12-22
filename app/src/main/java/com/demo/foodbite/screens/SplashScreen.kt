@@ -51,8 +51,6 @@ fun SplashScreen(navController: NavController){
                     contentScale = ContentScale.FillBounds
                 )
 
-
-                // Trigger navigation after a delay (2 seconds)
                 LaunchedEffect(Unit) {
                     delay(3000)
                     navController.navigate("selection_screen")

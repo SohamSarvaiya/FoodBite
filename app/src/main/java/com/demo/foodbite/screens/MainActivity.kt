@@ -1,4 +1,4 @@
-package com.demo.foodbite
+package com.demo.foodbite.screens
 
 import android.os.Build
 import android.os.Bundle

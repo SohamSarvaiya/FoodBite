@@ -67,14 +67,14 @@ fun HeaderSection() {
             .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
-        // Image starts right at the top, under the status bar
+
         Image(
             painter = painterResource(id = R.drawable.curve),
             contentDescription = "Img Desc",
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .align(Alignment.TopCenter), // Align image to top
+                .align(Alignment.TopCenter),
             contentScale = ContentScale.FillBounds
         )
 

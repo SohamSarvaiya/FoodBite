@@ -20,13 +20,10 @@ import com.demo.foodbite.viewmodels.UserViewModel
 
 @Composable
 fun MainScreen(navController: NavHostController, viewModel: UserViewModel) {
-    Box(
-        modifier = Modifier.fillMaxSize().padding(20.dp),
+    Box(modifier = Modifier.fillMaxSize().padding(20.dp),
         contentAlignment = Alignment.Center
-
     ){
         Column() {
-
             Text(
                 text = "Welcome",
                 color = Color.Black,
@@ -36,7 +33,6 @@ fun MainScreen(navController: NavHostController, viewModel: UserViewModel) {
                     Font(R.font.nunito_bold)
                 )
             )
-
             Text(
                 text = "Username -  ${viewModel.username}",
                 color = Color.Black,
@@ -55,7 +51,6 @@ fun MainScreen(navController: NavHostController, viewModel: UserViewModel) {
                     Font(R.font.nunito_bold)
                 )
             )
-
             Text(
                 text = "Date of Birth -  ${viewModel.dob}",
                 color = Color.Black,
@@ -65,14 +60,6 @@ fun MainScreen(navController: NavHostController, viewModel: UserViewModel) {
                     Font(R.font.nunito_bold)
                 )
             )
-
-
-
         }
-
-
-
     }
-
 }
-
