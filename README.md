@@ -11,7 +11,7 @@ Splash Screen: A visually appealing introduction screen.
 Login Screen: For user authentication with a simple and clean interface.
 Register Screen: Allows new users to create an account.
 Forgot Password Screen: Helps users recover their account details.
-Integrate Pass UserData to Another Screen Functionality,using viewModel class
+Integrate Pass UserData to Another Screen Functionality, using ViewModel class
 
 🛠️ Technology Stack
 Language: Kotlin
@@ -27,3 +27,5 @@ Code follows clean architecture principles to ensure scalability and maintainabi
 Feel free to fork this repository and adapt it to your needs.
 📷 Screenshots (Optional Section if Available)
 Add screenshots of the implemented screens here to give visitors a visual preview.
+
+⭐️ Support This Project If you find this project useful or insightful, please give it a ⭐️ on GitHub and follow me for more exciting projects!
