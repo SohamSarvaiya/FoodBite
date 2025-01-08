@@ -28,4 +28,4 @@ Feel free to fork this repository and adapt it to your needs.
 📷 Screenshots (Optional Section if Available)
 Add screenshots of the implemented screens here to give visitors a visual preview.
 
-⭐️ Support This Project If you find this project useful or insightful, please give it a ⭐️ on GitHub and follow me for more exciting projects!
+⭐️  follow me for more exciting projects!⭐️ 
